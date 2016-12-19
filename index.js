@@ -1,8 +1,8 @@
 /* @flow */
 'use strict';
 
-import React, { Component } from 'react';
-import { TouchableOpacity, Text, Linking } from 'react-native';
+import React, { Component } from 'react'
+import { TouchableOpacity, Text, Linking } from 'react-native'
 
 export class OpenLink extends Component {
   propTypes: {
@@ -10,9 +10,21 @@ export class OpenLink extends Component {
     email: React.PropTypes.string
   }
 
+  handleClick = () => {
+    Linking.canOpenURL(this.props.phoneNumber).then(supported => {
+      if (supported) {
+        Linking.openURL(this.props.phoneNumber);
+      } else {
+        console.log('Don\'t know how to open URI: ' + this.props.phoneNumber);
+      }
+    });
+  };
+
   render() {
     return (
-      <Text>i am component</Text>
+      <TouchableOpacity onPress={this.handleClick}>
+        <Text>yoyoyo</Text>
+      </TouchableOpacity>
     )
   }
 }
